@@ -7,13 +7,16 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { FontLoader} from 'three/examples/jsm/loaders/FontLoader'
 import { AudioLoader } from "three";
 import { extend, useFrame } from '@react-three/fiber'
-import stay from './stay.ogg'
-
+import stay from './stay.mp3'
+import { PositionalAudio } from '@react-three/drei'
+import { useThree, useLoader } from "@react-three/fiber";
 extend({ TextGeometry })
 export default  function Three() {
+    var musicZoom=true;
     const font= new FontLoader().parse(arunati);
+ 
    
-
+    
    
 
     var size = 1* Math.random() ;
@@ -38,15 +41,18 @@ export default  function Three() {
     const boxRef = useRef(null);
 
     useFrame(() => {
-        boxRef.current.rotation.x+= -0.0001 
-        boxRef.current.rotation.y+= -0.0001 
+        boxRef.current.rotation.x+= 0.0002 
+       
+        boxRef.current.rotation.z+= 0.0002 
+        
       });
 
       const cirRef = useRef(null);
 
       useFrame(() => {
-        cirRef.current.rotation.z+= 0.001  
-        boxRef.current.rotation.x+= 0.001
+        cirRef.current.rotation.z+= 0.0001  
+        cirRef.current.rotation.x+= 0.0001
+       
       });
     const pos =[
 ]
@@ -97,7 +103,7 @@ for(var i=0;i<60;i++){
         </mesh>
         
         <mesh position={[-20,-5,-2]} rotation={[0,0.8,0]} >
-        <textGeometry args={['ENI',{font,size:1,height:0.5,}]} />
+        <textGeometry args={['FRONTEND ',{font,size:1,height:0.5,}]} />
         <meshNormalMaterial color={'gold'} />
         </mesh>
         <mesh position={[-6,-2.5,2]} rotation={[0,0,0]} >
@@ -109,11 +115,11 @@ for(var i=0;i<60;i++){
         <textGeometry args={['A WEB DEVELOPER',{font,size:0.5,height:0}]} />
         <meshBasicMaterial color={'RED'} />
         </mesh>
-        <mesh ref={boxRef}>
+        <mesh ref={boxRef} >
         {
             pos.map((pos) => <mesh position={[pos.x,pos.y,pos.z]} rotation={[pos.rx,pos.ry,pos.rz]} ref={pos.ref1} >
-            <mesh >
-            <boxGeometry args={[3,3,3]}   />
+            <mesh ref={boxRef}  >
+            <boxGeometry args={[3,3,3]}  />
             <meshNormalMaterial />
             </mesh>
             
@@ -133,6 +139,9 @@ for(var i=0;i<60;i++){
         </mesh>
         <spotLight args={["blue",1.5,7,0.75,0.4]} position={[1,5,0]}  castShadow/>
         <ambientLight args={["#ffffff", 1]}/>
+        {musicZoom && (
+        <PositionalAudio url={stay} distance={1} loop={true} autoplay={true} />
+      )}
         
        
         </>
