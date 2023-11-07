@@ -9,7 +9,11 @@
 
 
 #canvas{
-  width: 100vw !important;
+  background-image: url(https://4kwallpapers.com/images/walls/thumbs/12523.jpg);
+  background-size: cover; 
   height: 100vh !important;
-  
+ 
+}
+body{ 
+  margin: 0;
 }
