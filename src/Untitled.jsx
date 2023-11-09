@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
+
 export default function Model(props) {
-  const { nodes, materials } = useGLTF("/untitled4.gltf");
+  const { nodes, materials } = useGLTF("./public/untitled4.glb");
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -66,7 +67,7 @@ export default function Model(props) {
   );
 }
 
-useGLTF.preload("/untitled4.gltf");
+useGLTF.preload("./public/untitled4.glb");
 
 
 
